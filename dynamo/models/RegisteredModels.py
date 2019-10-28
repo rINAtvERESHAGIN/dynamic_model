@@ -1,9 +1,14 @@
 from django.db import models
+from dynamo.models.tree import Instance
+
+"""Регестрация новой таблицы"""
 
 
 class RegisteredDynamicModel(models.Model):
-    model_name = models.CharField(max_length=100)
+    dynamic_model = models.CharField(max_length=100)
     token = models.UUIDField()
+    model = models.CharField(max_length=100, null=True)
+    instance = models.ForeignKey(Instance, on_delete=models.CASCADE, null=True, related_name='models')
 
 
 def registration(table_name, model_uuid):
